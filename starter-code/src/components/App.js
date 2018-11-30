@@ -5,13 +5,38 @@ import ProductTable from './ProductTable';
 import SearchBar from './SearchBar';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      search: "",
+      stocked: false
+    }
+  }
+
+  searchState = (character) => {
+    this.setState({
+      search: character
+    })
+  }
+
+  toggleStocked = (newStocked) => {
+    this.setState({
+      stocked: newStocked
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Products:</h1>
-        <SearchBar/>
+        <SearchBar
+          searchState={this.searchState}
+          toggleStocked={this.toggleStocked}
+          stocked={this.state.stocked}
+        />
         <ProductTable 
-        data={data}/>
+          searchFilter={this.state.search}
+          data={data}/>
       </div>
     );
   }
